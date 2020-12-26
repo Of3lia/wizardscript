@@ -1,0 +1,24 @@
+<svg width="400px" height="400px" style=" box-sizing:border-box; border: 1px solid black; margin: 1em;">
+    <rect   *ngFor="let tile of mapGeneratorService.tiles; let i = index"   
+            [attr.x]="this.mapGeneratorService.tiles[i].posX" 
+            [attr.y]="this.mapGeneratorService.tiles[i].posY"
+            [attr.width]="this.mapGeneratorService.tiles[i].width" 
+            [attr.height]="this.mapGeneratorService.tiles[i].height"
+            style="stroke: black; stroke-width: 1%; fill: green;"
+            >
+            
+    </rect>
+    
+</svg> 
+
+<!-- <div #unit>{{this.myDiv?.nativeElement.getBoundingClientRect().y}}</div> -->
+
+   <!-- <animateTransform
+                attributeName="transform"
+                begin="0s"
+                dur="2s"
+                type="rotate"
+                from="0 60 60"
+                to="360 100 60"
+                repeatCount="indefinite"
+                     /> -->
