@@ -60,3 +60,13 @@ export class Unit{
     posX:number;
     posY:number
 }
+
+// export class Wizard implements Unit{
+//     constructor() {
+//         super();
+        
+//     }
+//     posX: number;
+//     posY: number;
+    
+// }
