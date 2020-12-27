@@ -1,11 +1,11 @@
 <svg width="400px" height="400px" style=" box-sizing:border-box; border: 1px solid black; margin: 1em;">
     <!-- Tiles -->
     <rect   *ngFor="let tile of mapGeneratorService.tiles; let i = index"   
-            [attr.x]="this.mapGeneratorService.tiles[i].posX" 
-            [attr.y]="this.mapGeneratorService.tiles[i].posY"
+            [attr.x]="this.mapGeneratorService.tiles[i].percentX" 
+            [attr.y]="this.mapGeneratorService.tiles[i].percentY"
             [attr.width]="this.mapGeneratorService.tiles[i].width" 
             [attr.height]="this.mapGeneratorService.tiles[i].height"
-            style="stroke: rgb(26, 26, 26); stroke-width: 0.1%; fill: green;"
+            style="stroke: rgb(26, 26, 26); stroke-width: 0.1%; fill: {{this.mapGeneratorService.tiles[i].color}};"
             >
     </rect>
 

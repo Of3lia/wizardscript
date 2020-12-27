@@ -10,10 +10,10 @@ export class MapGeneratorService {
 
   selectedLevel:Level = LEVELS[0];
   // map:Tile[] = [];
-  tiles:Tile[] = [];
+  public tiles:Tile[] = [];
   cols:number = this.selectedLevel.cols;
   rows:number = this.selectedLevel.rows;
-  nTiles:number = 0;
+  // nTiles:number = 0;
   
   constructor() { 
   }
@@ -34,12 +34,16 @@ export class MapGeneratorService {
   // }
 
   initializeTiles(){
-    this.nTiles = this.cols * this.rows;
+    // this.nTiles = this.cols * this.rows;
 
-    for(var i = 0; i < this.rows; i++){
-      for(var j = 0; j < this.cols; j++){
-        this.tiles.push(new Tile(i, j, this.cols, this.rows));
-      }
-    }
+    // for(var i = 0; i < this.rows; i++){
+    //   for(var j = 0; j < this.cols; j++){
+    //     this.tiles.push(new Tile(i, j, this.cols, this.rows));
+    //   }
+    // }
+
+    this.selectedLevel.tiles.forEach(element => {
+      this.tiles.push(element);
+    });
   }
 }
