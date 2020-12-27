@@ -1,0 +1,31 @@
+import { Injectable } from '@angular/core';
+import { delay } from 'rxjs/operators';
+import { Unit, Wizard } from '../models/gameModels';
+import { MapGeneratorService } from './map-generator.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class GameControllerService {
+
+  units:Unit[] = this.mapGeneratorService.units;
+  constructor(
+    private mapGeneratorService: MapGeneratorService,
+  ) { }
+
+  initUpdate(){
+    setTimeout(() => {
+      this.initUpdate();
+      this.update();
+    }, 10);
+  }
+
+  private update(){
+    console.log('update');
+    this.units.forEach(element => {
+      element.update();
+    });
+  }
+
+
+}

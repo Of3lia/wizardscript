@@ -15,9 +15,17 @@ export class Level{
     units:Unit[] = [];
 }
 
-export class Tile{
-    constructor(posX: number, posY:number, totalCols:number, totalRows:number, type:TileType = TileType.Grass) {
+export interface Positionable{
+    posX: number;
+    posY: number;
+    percentX: string;
+    percentY: string;
+    width:string;
+    height:string;
+}
 
+export class iPositionable implements Positionable{
+    constructor(posX: number, posY:number, totalCols:number, totalRows:number,) {
         if(posX != 0){
             this.percentX = ((posX * 100) / totalCols).toString() + '%';
         }
@@ -25,9 +33,24 @@ export class Tile{
             this.percentY = ((posY * 100) / totalRows).toString() + '%';
         }
 
+        this.posX = posX;
+        this.posY = posY;
+
         this.width = (100 / totalCols).toString() + '%';
         this.height = (100 / totalRows).toString() + '%';
+    }
+    public posX: number;
+    public posY: number;
+    public percentX: string = '0%';
+    public percentY: string = '0%';
+    width:string = '';
+    height:string = '';
+}
 
+export class Tile extends iPositionable{
+    constructor(posX: number, posY:number, totalCols:number, totalRows:number, type:TileType = TileType.Grass) {
+        super(posX, posY, totalCols, totalRows);
+      
         this.type = type;
         switch(type){
             case TileType.Lava:
@@ -38,16 +61,6 @@ export class Tile{
             break;
         }
     }
-
-    public posX: number = 0;
-    public posY: number = 0;
-    public percentX: string = '0%';
-    public percentY: string = '0%';
-
-
-    width:string = '';
-    height:string = '';
-
     type:TileType;
     public color:string = 'rgb(100, 180, 80)';
 }
@@ -58,29 +71,40 @@ export enum TileType{
     Lava
 }
 
-export class Unit{
-    constructor(posX: number, posY:number, tiles: Tile[], mapGenSvc:MapGeneratorService) {
-        this.posX = posX;
-        this.posY = posY;
-        tiles = mapGenSvc.tiles;
-    }
-    posX:number;
-    posY:number;
-    percentX:string = '0%';
-    percentY:string = '0%';
+export class Unit extends iPositionable{
+    constructor(posX: number, posY:number, totalCols:number, totalRows:number, type:TileType = TileType.Grass) {
+        super(posX, posY, totalCols, totalRows);
 
-    initUnit(tiles:Tile[]){
-        tiles.forEach(element => {
-            if(element.posX == this.posX && element.posX == this.posY){
-                this.percentX = element.percentX;
-                this.percentY = element.percentY;
-            }
-        });
+        this.totalCols =  totalCols;
+        this.totalRows =  totalRows;
+    }
+    totalCols:number;
+    totalRows:number;
+
+    private movement:UnitMovement=UnitMovement.Idle;
+    speed:number= 0.1;
+
+    public update(){
+        if(this.movement != UnitMovement.Idle){
+            this.percentX = ((this.posX * 100) / this.totalCols).toString() + '%';
+        }   
+    }
+
+    moveTo(direction:UnitMovement){
+        this.movement = direction;
     }
 }
 
+export enum UnitMovement{
+    Left,
+    Right,
+    Up,
+    Down,
+    Idle
+}
+
 export class Wizard extends Unit{
-    constructor(posX:number, posY:number, tiles:Tile[], mapGenSvc:MapGeneratorService) {
-        super(posX, posY, tiles, mapGenSvc);
+    constructor(posX: number, posY:number, totalCols:number, totalRows:number, type:TileType = TileType.Grass) {
+        super(posX, posY, totalCols, totalRows);
     }
 }

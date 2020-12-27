@@ -1,7 +1,7 @@
 import { PercentPipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { LEVELS } from '../data/levels';
-import { Level, Tile } from '../models/gameModels';
+import { Level, Tile, Unit } from '../models/gameModels';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,7 @@ export class MapGeneratorService {
   public tiles:Tile[] = [];
   cols:number = this.selectedLevel.cols;
   rows:number = this.selectedLevel.rows;
+  units:Unit[] = this.selectedLevel.units;
   // nTiles:number = 0;
   
   constructor() { 

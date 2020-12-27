@@ -34,6 +34,6 @@ export const LEVELS: Level[] = [
             new Tile(4,3,5,5),
             new Tile(4,4,5,5),
     ], units:[
-        // new Wizard(2,2)
+        new Wizard(2,2,5,5),
     ] }
 ]
