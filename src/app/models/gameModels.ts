@@ -104,33 +104,38 @@ export class Unit extends iPositionable{
     }
 
     private move(){
-        if(this.steps > 0){
-            this.steps--;
-            this.percX += this.speed;
-            this.percentX = this.percX + '%';
+        if(this.movement != UnitMovement.Idle){
+            if(this.steps > 0){
+                this.steps--;
+                if(this.movement == UnitMovement.Left){ this.percX -= this.speed; }
+                if(this.movement == UnitMovement.Right){ this.percX += this.speed; }
+                if(this.movement == UnitMovement.Up){ this.percY -= this.speed; }
+                if(this.movement == UnitMovement.Down){ this.percY += this.speed; }
+                
+                this.percentX = this.percX + '%';
+                this.percentY = this.percY + '%';
+            }else{
+                this.movement = UnitMovement.Idle;
+            }
         }
     }
 
-    public moveTo(direction:UnitMovement){
-        this.movement = direction;
+    public moveTo(direction:string){
         switch (direction){
-            case UnitMovement.Left:
-                this.posX--;
-                // this.newPercentX = ((this.posX * 100) / this.totalCols).toString() + '%';
-            break;
-            case UnitMovement.Right:
-                this.posX++;
-                // this.newPercentX = ((this.posX * 100) / this.totalCols).toString() + '%';
-            break;
-            case UnitMovement.Up:
-                this.posY++;
-                // this.newPercentX = ((this.posY * 100) / this.totalRows).toString() + '%';
-            break;
-            case UnitMovement.Down:
-                this.posY--;
-                // this.newPercentX = ((this.posY * 100) / this.totalRows).toString() + '%';
-            break;
+            case UnitMovement[0]:
+                this.movement = UnitMovement.Left;
+                break;
+            case UnitMovement[1]:
+                this.movement = UnitMovement.Right;
+                break;
+            case UnitMovement[2]:
+                this.movement = UnitMovement.Up;
+                break;
+            case UnitMovement[3]:
+                this.movement = UnitMovement.Down;
+                break;
         }
+        this.steps = this.totalSteps;
     }
 }
 

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Unit } from 'src/app/models/gameModels';
+import { Unit, UnitMovement } from 'src/app/models/gameModels';
 import { MapGeneratorService } from 'src/app/services/map-generator.service';
 
 @Component({
@@ -9,7 +9,12 @@ import { MapGeneratorService } from 'src/app/services/map-generator.service';
 })
 export class ConsoleComponent implements OnInit {
 
-  wizScript:any;
+  wizScript:any = 'this.wizard.moveTo("Right");';
+
+  Left:UnitMovement=UnitMovement.Left;
+  Right:UnitMovement=UnitMovement.Right;
+  Up:UnitMovement=UnitMovement.Up;
+  Down:UnitMovement=UnitMovement.Down;
 
   constructor(
     private mapGeneratorService:MapGeneratorService
@@ -18,15 +23,15 @@ export class ConsoleComponent implements OnInit {
   wizard:Unit = this.mapGeneratorService.units[0];
 
   ngOnInit(): void {
-    console.log(this.wizScript);
-
-  }
-
-  ngAfterViewInit() {
-    console.log(this.wizScript);
   }
 
   runScript(){
-    eval(this.wizScript);
+
+    try{
+      eval(this.wizScript);
+    }
+    catch(e){
+      console.log("You lose, error in compilation: " + e );
+    }
   }
 }
