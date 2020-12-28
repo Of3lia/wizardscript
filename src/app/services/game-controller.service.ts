@@ -17,7 +17,7 @@ export class GameControllerService {
     setTimeout(() => {
       this.initUpdate();
       this.update();
-    }, 10);
+    }, 25);
   }
 
   private update(){

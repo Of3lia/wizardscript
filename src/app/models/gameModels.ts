@@ -27,10 +27,12 @@ export interface Positionable{
 export class iPositionable implements Positionable{
     constructor(posX: number, posY:number, totalCols:number, totalRows:number,) {
         if(posX != 0){
-            this.percentX = ((posX * 100) / totalCols).toString() + '%';
+            this.percX = ((posX * 100) / totalCols);
+            this.percentX = this.percX + '%';
         }
         if(posY != 0){
-            this.percentY = ((posY * 100) / totalRows).toString() + '%';
+            this.percY = ((posY * 100) / totalRows);
+            this.percentY = this.percY + '%';
         }
 
         this.posX = posX;
@@ -41,6 +43,8 @@ export class iPositionable implements Positionable{
     }
     public posX: number;
     public posY: number;
+    public percX:number=0;
+    public percY:number=0;
     public percentX: string = '0%';
     public percentY: string = '0%';
     width:string = '';
@@ -77,21 +81,56 @@ export class Unit extends iPositionable{
 
         this.totalCols =  totalCols;
         this.totalRows =  totalRows;
+
+        this.totalSteps = 60;
+        this.steps = this.totalSteps;
+        this.speed = this.percX / this.steps / 2;
     }
     totalCols:number;
     totalRows:number;
 
     private movement:UnitMovement=UnitMovement.Idle;
-    speed:number= 0.1;
+
+    totalSteps:number;
+    steps:number;
+    speed:number;
 
     public update(){
-        if(this.movement != UnitMovement.Idle){
-            this.percentX = ((this.posX * 100) / this.totalCols).toString() + '%';
-        }   
+        this.stateMachine();
     }
 
-    moveTo(direction:UnitMovement){
+    private stateMachine(){
+        this.move();
+    }
+
+    private move(){
+        if(this.steps > 0){
+            this.steps--;
+            this.percX += this.speed;
+            this.percentX = this.percX + '%';
+        }
+    }
+
+    public moveTo(direction:UnitMovement){
         this.movement = direction;
+        switch (direction){
+            case UnitMovement.Left:
+                this.posX--;
+                // this.newPercentX = ((this.posX * 100) / this.totalCols).toString() + '%';
+            break;
+            case UnitMovement.Right:
+                this.posX++;
+                // this.newPercentX = ((this.posX * 100) / this.totalCols).toString() + '%';
+            break;
+            case UnitMovement.Up:
+                this.posY++;
+                // this.newPercentX = ((this.posY * 100) / this.totalRows).toString() + '%';
+            break;
+            case UnitMovement.Down:
+                this.posY--;
+                // this.newPercentX = ((this.posY * 100) / this.totalRows).toString() + '%';
+            break;
+        }
     }
 }
 
