@@ -130,6 +130,7 @@ export class Unit extends iPositionable{
     }
 
     private move(){
+        console.log(this.steps);
         if(this.movements.length > 0){
             if(this.steps > 0){
                 this.steps--;
@@ -141,9 +142,10 @@ export class Unit extends iPositionable{
                 this.percentX = this.percX + '%';
                 this.percentY = this.percY + '%';
             }else{
+                this.setNewPos(this.movements[0])
+                this.checkDanger(this.movement);
                 this.movements.shift();
                 if(this.movements.length > 0){ this.steps = this.totalSteps; } else { this.movement = UnitMovement.Idle; }
-                this.checkDanger(this.movement);
             }
         }
     }
@@ -165,7 +167,6 @@ export class Unit extends iPositionable{
         }
         this.movements.push(this.movement);
         this.steps = this.totalSteps;
-        this.setNewPos(this.movements[0])
     }
 
     private setNewPos(direction:UnitMovement){
