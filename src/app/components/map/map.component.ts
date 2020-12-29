@@ -24,8 +24,8 @@ export class MapComponent implements OnInit {
     this.gameControllerService.initUpdate();
     // this.mapGeneratorService.units[0].moveTo("Right");
 
-    console.log(this.mapGeneratorService.units[0]);
-    console.log(this.mapGeneratorService.tiles[8]);
+    // console.log(this.mapGeneratorService.units[0]);
+    // console.log(this.mapGeneratorService.tiles[8]);
   }
 
   // ngAfterViewInit() {

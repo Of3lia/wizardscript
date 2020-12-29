@@ -1,4 +1,5 @@
 import { getCurrencySymbol } from '@angular/common';
+import { LEVELS } from '../data/levels';
 import { MapGeneratorService } from './../services/map-generator.service';
 
 export class Level{
@@ -76,24 +77,48 @@ export enum TileType{
 }
 
 export class Unit extends iPositionable{
-    constructor(posX: number, posY:number, totalCols:number, totalRows:number, type:TileType = TileType.Grass) {
+    constructor(posX: number, posY:number, totalCols:number, totalRows:number, level?:Level) {
         super(posX, posY, totalCols, totalRows);
 
         this.totalCols =  totalCols;
         this.totalRows =  totalRows;
 
         this.totalSteps = 60;
-        this.steps = this.totalSteps;
-        this.speed = this.percX / this.steps / 2;
+        this.steps = 0;
+        this.speed = this.percX / this.totalSteps / 2;
+
     }
     totalCols:number;
     totalRows:number;
 
-    private movement:UnitMovement=UnitMovement.Idle;
+    private movement:UnitMovement = UnitMovement.Idle;
 
     totalSteps:number;
     steps:number;
     speed:number;
+    movements:UnitMovement[] = [];
+
+    private _level?: Level | undefined;
+    public get level(): Level | undefined {
+        return this._level;
+    }
+    public set level(value: Level | undefined) {
+        this._level = value;
+        // Initialize Tiles
+        this.tiles = this._level!.tiles;
+
+          // Initialize Map
+        this.map = new Array(this.level!.cols);
+        var k:number = 0;
+        for(var i = 0; i < this.level!.rows; i++){
+            this.map[i] = new Array(this.level!.rows);
+            for(var j = 0; j < this.level!.cols; j++){
+            this.map[i][j] = this.tiles[k]; k++;
+            }
+        }
+    }
+    tiles:Tile[] = [];
+    map:Tile[][] = [];
 
     public update(){
         this.stateMachine();
@@ -101,21 +126,24 @@ export class Unit extends iPositionable{
 
     private stateMachine(){
         this.move();
+
     }
 
     private move(){
-        if(this.movement != UnitMovement.Idle){
+        if(this.movements.length > 0){
             if(this.steps > 0){
                 this.steps--;
-                if(this.movement == UnitMovement.Left){ this.percX -= this.speed; }
-                if(this.movement == UnitMovement.Right){ this.percX += this.speed; }
-                if(this.movement == UnitMovement.Up){ this.percY -= this.speed; }
-                if(this.movement == UnitMovement.Down){ this.percY += this.speed; }
+                if(this.movements[0] == UnitMovement.Left){ this.percX -= this.speed; }
+                if(this.movements[0] == UnitMovement.Right){ this.percX += this.speed; }
+                if(this.movements[0] == UnitMovement.Up){ this.percY -= this.speed; }
+                if(this.movements[0] == UnitMovement.Down){ this.percY += this.speed; }
                 
                 this.percentX = this.percX + '%';
                 this.percentY = this.percY + '%';
             }else{
-                this.movement = UnitMovement.Idle;
+                this.movements.shift();
+                if(this.movements.length > 0){ this.steps = this.totalSteps; } else { this.movement = UnitMovement.Idle; }
+                this.checkDanger(this.movement);
             }
         }
     }
@@ -135,7 +163,33 @@ export class Unit extends iPositionable{
                 this.movement = UnitMovement.Down;
                 break;
         }
+        this.movements.push(this.movement);
         this.steps = this.totalSteps;
+        this.setNewPos(this.movements[0])
+    }
+
+    private setNewPos(direction:UnitMovement){
+        switch (direction){
+            case UnitMovement.Left:
+                this.posX--;
+                break;
+            case UnitMovement.Right:
+                this.posX++;
+                break;
+            case UnitMovement.Up:
+                this.posY--;
+                break;
+            case UnitMovement.Down:
+                this.posY++;
+                break;
+        }
+        console.log(this.posX, this.posY);
+    }
+
+    private checkDanger(newPos:UnitMovement){
+        if( this.map[this.posX][this.posY].type == TileType.Lava ){
+            window.alert("Wizard tried to walk in lava");
+        }
     }
 }
 
@@ -148,7 +202,7 @@ export enum UnitMovement{
 }
 
 export class Wizard extends Unit{
-    constructor(posX: number, posY:number, totalCols:number, totalRows:number, type:TileType = TileType.Grass) {
-        super(posX, posY, totalCols, totalRows);
+    constructor(posX: number, posY:number, totalCols:number, totalRows:number, level?:Level) {
+        super(posX, posY, totalCols, totalRows, level);
     }
 }

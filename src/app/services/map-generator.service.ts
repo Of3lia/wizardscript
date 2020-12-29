@@ -9,42 +9,34 @@ import { Level, Tile, Unit } from '../models/gameModels';
 export class MapGeneratorService {
 
   selectedLevel:Level = LEVELS[0];
-  // map:Tile[] = [];
   public tiles:Tile[] = [];
+  public map:Tile[][] = [];
   cols:number = this.selectedLevel.cols;
   rows:number = this.selectedLevel.rows;
   units:Unit[] = this.selectedLevel.units;
-  // nTiles:number = 0;
+  wizard:Unit = this.units[0];
   
   constructor() { 
   }
 
-  // generateMap(){
-  //     // Initialize Tiles Array
-  //     for(var i = 0; i < this.rows; i++){
-  //       this.tiles.push(new Array(this.cols));
-  //     }
-  
-  //     for(var i = 0; i < this.rows; i++){
-  //       for(var j = 0; j < this.cols; j++){
-  //         var newTile = new Tile(i,j);
-  //         this.map.push(newTile);
-  //         this.tiles[i][j] = newTile;
-  //       }
-  //     }
-  // }
-
   initializeTiles(){
-    // this.nTiles = this.cols * this.rows;
-
-    // for(var i = 0; i < this.rows; i++){
-    //   for(var j = 0; j < this.cols; j++){
-    //     this.tiles.push(new Tile(i, j, this.cols, this.rows));
-    //   }
-    // }
-
+    // Populate World Tiles
     this.selectedLevel.tiles.forEach(element => {
       this.tiles.push(element);
     });
+
+    // // Initialize Map
+    // this.map = new Array(this.cols);
+    // var k:number = 0;
+    // for(var i = 0; i < this.rows; i++){
+    //     this.map[i] = new Array(this.rows);
+    //     for(var j = 0; j < this.cols; j++){
+    //       this.map[i][j] = this.tiles[k]; k++;
+    //     }
+    //   }
+
+
+    // Inject Level to wizard
+    this.wizard.level = this.selectedLevel;
   }
 }

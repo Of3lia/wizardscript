@@ -9,6 +9,7 @@ import { MapGeneratorService } from './map-generator.service';
 export class GameControllerService {
 
   units:Unit[] = this.mapGeneratorService.units;
+  wizard:Unit = this.units[0];
   constructor(
     private mapGeneratorService: MapGeneratorService,
   ) { }
@@ -21,10 +22,15 @@ export class GameControllerService {
   }
 
   private update(){
-    console.log('update');
+    // console.log('update');
     this.units.forEach(element => {
       element.update();
     });
+
+    this.checkWizardCollisions();
+  }
+
+  private checkWizardCollisions(){
   }
 
 

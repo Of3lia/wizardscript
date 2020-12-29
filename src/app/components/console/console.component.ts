@@ -9,7 +9,7 @@ import { MapGeneratorService } from 'src/app/services/map-generator.service';
 })
 export class ConsoleComponent implements OnInit {
 
-  wizScript:any = 'this.wizard.moveTo("Right");';
+  wizScript:any = 'this.wizard.moveTo("Left");';
 
   Left:UnitMovement=UnitMovement.Left;
   Right:UnitMovement=UnitMovement.Right;
