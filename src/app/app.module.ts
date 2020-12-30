@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { MapComponent } from './components/map/map.component';
 import { UnitComponent } from './components/unit/unit.component';
 import { ConsoleComponent } from './components/console/console.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { ConsoleComponent } from './components/console/console.component';
     BrowserAnimationsModule,
     MatGridListModule,
     FormsModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

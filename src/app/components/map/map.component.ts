@@ -13,6 +13,7 @@ export class MapComponent implements OnInit {
   // @ViewChild('unit') myDiv: ElementRef | undefined;
   // @ViewChildren('tileCenter') components?:QueryList<any>;
   tileCenters:any = [];
+  mapHeight:string = '200px';
   constructor(
     public mapGeneratorService: MapGeneratorService,
     public gameControllerService: GameControllerService,
