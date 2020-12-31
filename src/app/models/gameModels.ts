@@ -1,7 +1,3 @@
-import { getCurrencySymbol } from '@angular/common';
-import { LEVELS } from '../data/levels';
-import { MapGeneratorService } from './../services/map-generator.service';
-
 export class Level{
     constructor(levelNumber:number, rows:number, cols:number, tiles:Tile[]) {
         this.levelNumber = levelNumber;
@@ -120,6 +116,14 @@ export class Unit extends iPositionable{
     tiles:Tile[] = [];
     map:Tile[][] = [];
 
+    private _state: UnitState = UnitState.Alive;
+    public get state(): UnitState {
+        return this._state;
+    }
+    public set state(value: UnitState) {
+        this._state = value;
+    }
+
     public update(){
         this.stateMachine();
     }
@@ -143,7 +147,7 @@ export class Unit extends iPositionable{
                 this.percentY = this.percY + '%';
             }else{
                 this.setNewPos(this.movements[0])
-                this.checkDanger(this.movement);
+                this.setState(this.movement);
                 this.movements.shift();
                 if(this.movements.length > 0){ this.steps = this.totalSteps; } else { this.movement = UnitMovement.Idle; }
             }
@@ -187,11 +191,17 @@ export class Unit extends iPositionable{
         console.log(this.posX, this.posY);
     }
 
-    private checkDanger(newPos:UnitMovement){
+    private setState(newPos:UnitMovement){
         if( this.map[this.posX][this.posY].type == TileType.Lava ){
-            window.alert("Wizard tried to walk in lava");
+            this.state = UnitState.Dead
+            // window.alert("Wizard tried to walk in lava");
         }
     }
+}
+
+export enum UnitState{
+    Alive,
+    Dead
 }
 
 export enum UnitMovement{
