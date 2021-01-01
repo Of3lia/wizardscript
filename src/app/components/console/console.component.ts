@@ -3,7 +3,7 @@ import { Unit, UnitMovement } from 'src/app/models/gameModels';
 import { GameControllerService } from 'src/app/services/game-controller.service';
 import { MapGeneratorService } from 'src/app/services/map-generator.service';
 import {NgbProgressbarConfig} from '@ng-bootstrap/ng-bootstrap';
-import { ConsoleService } from 'wizardscript/services/console.service';
+import { ConsoleService } from './../../services/console.service';
 
 @Component({
   selector: 'app-console',
@@ -33,9 +33,11 @@ export class ConsoleComponent implements OnInit {
   wizard:Unit = this.mapGeneratorService.units[0];
   wizardMana:number = this.consoleService.wizardMana;
   consumedMana:number = 0;
-  leftMana:number = 0;
+  leftMana:number = this.wizardMana;
+  leftManaPercent:number = this.leftMana;
 
   ngOnInit(): void {
+    this.calculateMana();
   }
 
   runScript(){
@@ -46,11 +48,13 @@ export class ConsoleComponent implements OnInit {
     }
     catch(e){
       console.log("You lose, error in compilation: " + e );
+      window.alert("You lose, error in compilation: " + e );
     }
   }
 
   calculateMana(){
     this.consumedMana = this.wizScript.replace(/\s/g, '').length;
     this.leftMana = this.wizardMana - this.consumedMana;
+    this.leftManaPercent = 100 - (100 * this.consumedMana / 150);
   }
 }

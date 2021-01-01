@@ -1,5 +1,5 @@
 import { MapGeneratorService } from './../services/map-generator.service';
-import { Level, Tile, Unit, Wizard, TileType } from '../models/gameModels';
+import { Level, Tile, Unit, Wizard, TileType, CheckPoint } from '../models/gameModels';
 
 export const LEVELS: Level[] = [
     { levelNumber:1, cols: 5, rows:5, 
@@ -34,7 +34,12 @@ export const LEVELS: Level[] = [
             new Tile(4,3,5,5),
             new Tile(4,4,5,5),
     ], units:[
-        new Wizard(2,2,5,5),
+        new Wizard(2,2,5,5, 100),
+    ], checkPoints:[
+        new CheckPoint(3,2,5,5,0),
+        new CheckPoint(3,1,5,5,1),
+        new CheckPoint(2,1,5,5,2),
+        new CheckPoint(2,2,5,5,3)
     ] },
     { levelNumber:2, cols: 10, rows:6, 
         tiles:[
@@ -81,6 +86,6 @@ export const LEVELS: Level[] = [
              new Tile(5,5,6,6),
  
      ], units:[
-         new Wizard(2,2,6,6),
+         new Wizard(2,2,6,6, 100),
      ] }
 ]

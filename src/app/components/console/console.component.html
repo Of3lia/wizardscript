@@ -1,10 +1,22 @@
+<div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" style="margin-bottom: 0.2em;">
+    <label ngbButtonLabel class="btn-info">
+      <input ngbButton type="radio" [value]="1"> Left (pre-checked)
+    </label>&nbsp;
+    <label ngbButtonLabel class="btn-info">
+      <input ngbButton type="radio" value="middle"> Middle
+    </label>&nbsp;
+    <label ngbButtonLabel class="btn-info">
+      <input ngbButton type="radio" [value]="false"> Right
+    </label>
+  </div>
+
 <textarea #wizscript [(ngModel)]="wizScript" (ngModelChange)="calculateMana()"
 style=" padding: 0.4em; width: 100%; height: 100%; color: rgb(0, 179, 45); font-size: large; font-weight: bold; background-color: rgb(0, 0, 0);"></textarea>
 <div class="container">
     <div class="row">
-        <button (click)="runScript()" class="btn btn-success" [disabled]="disableButton">Run Script</button>
-        <p class="col-sm"><ngb-progressbar type="info" [value]="leftMana" style="width: 100%; height: 145%;">
-            <div style="font-size: 1.5em; color: black;">Maná: {{leftMana}}/{{wizardMana}}</div>
+        <button (click)="runScript()" class="btn btn-success" [disabled]="disableButton || leftMana < 0">Run Script</button>
+        <p class="col-sm"><ngb-progressbar type="info" [value]="leftManaPercent" style="width: 100%; height: 145%;">
+            <div class="col-sm" style="font-size: 1.5em; color: black; position: absolute;">Maná: {{leftMana}}/{{wizardMana}}</div>
         </ngb-progressbar></p>
     </div>    
 </div>

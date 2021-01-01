@@ -9,6 +9,15 @@
             >
     </rect>
 
+    <ng-container *ngFor="let checkPoint of this.mapGeneratorService.checkPoints">
+        <image *ngIf="gameControllerService.currentCheckPointStep==checkPoint.step" [attr.href]="checkPoint.sprite"
+        [attr.x]="checkPoint.percentX" 
+        [attr.y]="checkPoint.percentY" 
+        [attr.width]="checkPoint.width" 
+        [attr.height]="checkPoint.height">
+        </image>
+   </ng-container>
+
     <!-- Wizard -->
     <image href="./../../assets/img/wizard.svg"
     [attr.x]="this.mapGeneratorService.units[0].percentX" 

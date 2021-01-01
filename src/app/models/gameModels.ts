@@ -10,6 +10,7 @@ export class Level{
     cols: number;
     tiles:Tile[];
     units:Unit[] = [];
+    checkPoints?:CheckPoint[] = [];
 }
 
 export interface Positionable{
@@ -48,6 +49,19 @@ export class iPositionable implements Positionable{
     height:string = '';
 }
 
+export class CheckPoint extends iPositionable {
+
+    isActivated:boolean = false;
+    step:number;
+    sprite:string = "./../../assets/img/checkPointFlag.svg";
+
+    constructor(posX: number, posY:number, totalCols:number, totalRows:number, step:number) {
+        super(posX, posY, totalCols, totalRows);
+
+        this.step = step;
+    }
+}
+
 export class Tile extends iPositionable{
     constructor(posX: number, posY:number, totalCols:number, totalRows:number, type:TileType = TileType.Grass) {
         super(posX, posY, totalCols, totalRows);
@@ -64,6 +78,7 @@ export class Tile extends iPositionable{
     }
     type:TileType;
     public color:string = 'rgb(100, 180, 80)';
+    checkPoint:CheckPoint | undefined;
 }
 
 export enum TileType{
@@ -84,6 +99,7 @@ export class Unit extends iPositionable{
         this.speed = this.percX / this.totalSteps / 2;
 
     }
+
     totalCols:number;
     totalRows:number;
 
@@ -93,6 +109,8 @@ export class Unit extends iPositionable{
     steps:number;
     speed:number;
     movements:UnitMovement[] = [];
+    
+    checkPoint:CheckPoint | undefined;
 
     private _level?: Level | undefined;
     public get level(): Level | undefined {
@@ -130,7 +148,6 @@ export class Unit extends iPositionable{
 
     private stateMachine(){
         this.move();
-
     }
 
     private move(){
@@ -193,15 +210,19 @@ export class Unit extends iPositionable{
 
     private setState(newPos:UnitMovement){
         if( this.map[this.posX][this.posY].type == TileType.Lava ){
+            // Is on lava
             this.state = UnitState.Dead
-            // window.alert("Wizard tried to walk in lava");
+        }
+        else if( this.map[this.posX][this.posY].checkPoint != undefined && this.map[this.posX][this.posY].checkPoint?.isActivated ){
+            // Is on a Check Point
+            this.checkPoint = this.map[this.posX][this.posY].checkPoint
         }
     }
 }
 
 export enum UnitState{
     Alive,
-    Dead
+    Dead,
 }
 
 export enum UnitMovement{
@@ -213,7 +234,10 @@ export enum UnitMovement{
 }
 
 export class Wizard extends Unit{
-    constructor(posX: number, posY:number, totalCols:number, totalRows:number, level?:Level) {
+    constructor(posX: number, posY:number, totalCols:number, totalRows:number, mana:number, level?:Level) {
         super(posX, posY, totalCols, totalRows, level);
+        this.mana = mana;
     }
+
+    public mana:number;
 }

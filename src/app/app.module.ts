@@ -17,7 +17,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     MapComponent,
     UnitComponent,
-    ConsoleComponent
+    ConsoleComponent,
   ],
   imports: [
     BrowserModule,

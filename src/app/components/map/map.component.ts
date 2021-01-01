@@ -1,6 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList, HostListener } from '@angular/core';
-import { TileStyler } from '@angular/material/grid-list/tile-styler';
-import { UnitMovement } from 'src/app/models/gameModels';
 import { GameControllerService } from 'src/app/services/game-controller.service';
 import { MapGeneratorService } from 'src/app/services/map-generator.service';
 

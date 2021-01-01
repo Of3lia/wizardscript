@@ -1,7 +1,7 @@
 import { PercentPipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { LEVELS } from '../data/levels';
-import { Level, Tile, Unit } from '../models/gameModels';
+import { CheckPoint, Level, Tile, Unit } from '../models/gameModels';
 
 @Injectable({
   providedIn: 'root'
@@ -15,15 +15,24 @@ export class MapGeneratorService {
   rows:number = this.selectedLevel.rows;
   units:Unit[] = this.selectedLevel.units;
   wizard:Unit = this.units[0];
-  
+  checkPoints?:CheckPoint[] = this.selectedLevel.checkPoints;
+
   constructor() { 
   }
 
   initializeTiles(){
     // Populate World Tiles
-    this.selectedLevel.tiles.forEach(element => {
-      this.tiles.push(element);
+    this.selectedLevel.tiles.forEach(tile => {
+      this.tiles.push(tile);
+      this.checkPoints?.forEach(checkPoint => {
+        if(tile.posX == checkPoint.posX && tile.posY == checkPoint.posY){
+          tile.checkPoint = checkPoint;
+          if(checkPoint.step === 0){ checkPoint.isActivated = true; }
+        }
+      });
     });
+
+
 
     // // Initialize Map
     // this.map = new Array(this.cols);
