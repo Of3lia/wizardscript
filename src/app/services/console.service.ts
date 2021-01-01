@@ -4,7 +4,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ConsoleService {
-  wizardMana: number = 100;
+
+  wizardMana:number = 0;
+
+  asd:string="";
 
   constructor() { }
 }
