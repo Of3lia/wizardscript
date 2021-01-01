@@ -1,4 +1,5 @@
 <svg width="100px" height="100px" style=" box-sizing:border-box; border: 1px solid black; margin: 0em; width:100%; height:100%">
+    
     <!-- Tiles -->
     <rect   *ngFor="let tile of mapGeneratorService.tiles; let i = index"   
             [attr.x]="this.mapGeneratorService.tiles[i].percentX" 
@@ -9,8 +10,10 @@
             >
     </rect>
 
+    <!-- Check Points -->
     <ng-container *ngFor="let checkPoint of this.mapGeneratorService.checkPoints">
-        <image *ngIf="gameControllerService.currentCheckPointStep==checkPoint.step" [attr.href]="checkPoint.sprite"
+        <image *ngIf="gameControllerService.currentCheckPointStep==checkPoint.step" 
+        [attr.href]="checkPoint.sprite"
         [attr.x]="checkPoint.percentX" 
         [attr.y]="checkPoint.percentY" 
         [attr.width]="checkPoint.width" 
@@ -25,15 +28,5 @@
     [attr.width]="this.mapGeneratorService.units[0].width" 
     [attr.height]="this.mapGeneratorService.units[0].height" >
    </image>
-</svg> 
-<!-- <div #unit>{{this.myDiv?.nativeElement.getBoundingClientRect().y}}</div> -->
 
-   <!-- <animateTransform
-                attributeName="transform"
-                begin="0s"
-                dur="2s"
-                type="rotate"
-                from="0 60 60"
-                to="360 100 60"
-                repeatCount="indefinite"
-                     /> -->
+</svg> 

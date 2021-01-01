@@ -19,9 +19,9 @@ export class ConsoleComponent implements OnInit {
   Down:UnitMovement=UnitMovement.Down;
 
   disableButton:boolean=false;
-
+  model = 1;
   constructor(
-    private mapGeneratorService:MapGeneratorService,
+    public mapGeneratorService:MapGeneratorService,
     private gameControllerService:GameControllerService,
     private config: NgbProgressbarConfig,
     private consoleService: ConsoleService,

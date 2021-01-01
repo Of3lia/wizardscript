@@ -1,5 +1,5 @@
 import { MapGeneratorService } from './../services/map-generator.service';
-import { Level, Tile, Unit, Wizard, TileType, CheckPoint } from '../models/gameModels';
+import { Level, Tile, Unit, Wizard, TileType, CheckPoint, Dialog } from '../models/gameModels';
 
 export const LEVELS: Level[] = [
     { levelNumber:1, cols: 5, rows:5, 
@@ -33,14 +33,24 @@ export const LEVELS: Level[] = [
             new Tile(4,2,5,5),
             new Tile(4,3,5,5),
             new Tile(4,4,5,5),
-    ], units:[
-        new Wizard(2,2,5,5, 100),
-    ], checkPoints:[
-        new CheckPoint(3,2,5,5,0),
-        new CheckPoint(3,1,5,5,1),
-        new CheckPoint(2,1,5,5,2),
-        new CheckPoint(2,2,5,5,3)
-    ] },
+        ],
+         units:[
+            new Wizard(2,2,5,5, 100),
+        ],
+         checkPoints:[
+            new CheckPoint(3,2,5,5,0),
+            new CheckPoint(3,1,5,5,1),
+            new CheckPoint(2,1,5,5,2),
+            new CheckPoint(2,2,5,5,3)
+        ],
+         dialogs:[
+             new Dialog(0, `Ratpenat:   \u00A0\u00A0 \"Oh fuck, the evil wizards of Edenur have attacked me and now I have lost all my powers. 
+             I need to get to the cursed forest fast... but i can only do very little magic\"`),
+             new Dialog(1, "Text")
+         ],
+         helpText: `To move write in the console: <br><br> \u00A0\u00A0 wizard.MoveTo(\"Left\"); --> moves to the left. <br><br> Possible values 
+         are Left, Right, Up and Down. Dont forget the double quotes.`,
+    },
     { levelNumber:2, cols: 10, rows:6, 
         tiles:[
              new Tile(0,0,6,6),

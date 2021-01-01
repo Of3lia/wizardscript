@@ -4,6 +4,7 @@ export class Level{
         this.rows = rows;
         this.cols = cols;
         this.tiles = tiles;
+        this.dialogs
     }
     levelNumber:number;
     rows: number;
@@ -11,6 +12,14 @@ export class Level{
     tiles:Tile[];
     units:Unit[] = [];
     checkPoints?:CheckPoint[] = [];
+    dialogs?:Dialog[];
+    helpText?:string='';
+}
+
+export class Dialog { 
+    constructor(id:number, content:string) {
+     this.id=id; this.content=content;   
+    }    id:number; content:string 
 }
 
 export interface Positionable{
