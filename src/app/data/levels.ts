@@ -2,7 +2,7 @@ import { MapGeneratorService } from './../services/map-generator.service';
 import { Level, Tile, Unit, Wizard, TileType, CheckPoint, Dialog } from '../models/gameModels';
 
 export const LEVELS: Level[] = [
-    { levelNumber:1, cols: 5, rows:5, 
+    { levelNumber:1, title:"Walking in circles", cols: 5, rows:5, 
        tiles:[
             new Tile(0,0,5,5),
             new Tile(0,1,5,5),
@@ -38,20 +38,19 @@ export const LEVELS: Level[] = [
             new Wizard(2,2,5,5, 100),
         ],
          checkPoints:[
-            new CheckPoint(3,2,5,5,0),
-            new CheckPoint(3,1,5,5,1),
-            new CheckPoint(2,1,5,5,2),
+            new CheckPoint(3,2,5,5,0,true),
+            new CheckPoint(3,1,5,5,1,true),
+            new CheckPoint(2,1,5,5,2,true),
             new CheckPoint(2,2,5,5,3)
         ],
          dialogs:[
-             new Dialog(0, `Ratpenat:   \u00A0\u00A0 \"Oh fuck, the evil wizards of Edenur have attacked me and now I have lost all my powers. 
+             new Dialog(0, `Ratpenat:   \u00A0\u00A0 \"Oh fuck, the evil wizards of Evenur have attacked me and now I have lost all my powers. 
              I need to get to the cursed forest fast... but i can only do very little magic\"`),
-             new Dialog(1, "Text")
          ],
-         helpText: `To move write in the console: <br><br> \u00A0\u00A0 wizard.MoveTo(\"Left\"); --> moves to the left. <br><br> Possible values 
-         are Left, Right, Up and Down. Dont forget the double quotes.`,
+         helpText: `To move write in the console: <br><br> \u00A0\u00A0 wizard.MoveTo(left); --> moves to the left. <br><br> Possible values 
+         are left, right, up and down. <br><br> To restart the level, press the restart button in the console, or F5`,
     },
-    { levelNumber:2, cols: 10, rows:6, 
+    { levelNumber:2, title:"There is a long way", cols: 10, rows:6, 
         tiles:[
              new Tile(0,0,6,6),
              new Tile(0,1,6,6),

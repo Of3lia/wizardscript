@@ -12,19 +12,18 @@ import { ConsoleService } from './../../services/console.service';
 })
 export class ConsoleComponent implements OnInit {
 
-  wizScript:any = `wizard.moveTo("Right");\nwizard.moveTo("Up");\nwizard.moveTo("Left");\nwizard.moveTo("Down");\n`;
+  wizScript:any = `wizard.moveTo(right);`;
   Left:UnitMovement=UnitMovement.Left;
   Right:UnitMovement=UnitMovement.Right;
   Up:UnitMovement=UnitMovement.Up;
   Down:UnitMovement=UnitMovement.Down;
 
-  disableButton:boolean=false;
   model = 1;
   constructor(
     public mapGeneratorService:MapGeneratorService,
-    private gameControllerService:GameControllerService,
+    public gameControllerService:GameControllerService,
     private config: NgbProgressbarConfig,
-    private consoleService: ConsoleService,
+    public consoleService: ConsoleService,
   ) { 
     config.striped = true;
     config.animated = true;
@@ -35,21 +34,34 @@ export class ConsoleComponent implements OnInit {
   consumedMana:number = 0;
   leftMana:number = this.wizardMana;
   leftManaPercent:number = this.leftMana;
+  right:UnitMovement=UnitMovement.Right;
+  left:UnitMovement=UnitMovement.Left;
+  down:UnitMovement=UnitMovement.Down;
+  up:UnitMovement=UnitMovement.Up;
 
   ngOnInit(): void {
     this.calculateMana();
   }
 
   runScript(){
-    this.disableButton=true;
+    this.gameControllerService.disableRunScriptButton=true;
     try{
       this.gameControllerService.initUpdate();
-      eval(`var wizard = this.wizard;` + this.wizScript);
+      eval(`var wizard = this.wizard;
+       var right = this.right;
+       var left = this.left;
+       var up = this.up;
+       var down = this.down;
+       ` + this.wizScript);
     }
     catch(e){
       console.log("You lose, error in compilation: " + e );
       window.alert("You lose, error in compilation: " + e );
     }
+  }
+
+  restart(){
+    location.reload();    
   }
 
   calculateMana(){

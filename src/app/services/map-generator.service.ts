@@ -8,7 +8,7 @@ import { CheckPoint, Level, Tile, Unit } from '../models/gameModels';
 })
 export class MapGeneratorService {
 
-  selectedLevel:Level = LEVELS[0];
+  selectedLevel:Level = LEVELS[1];
   public tiles:Tile[] = [];
   public map:Tile[][] = [];
   cols:number = this.selectedLevel.cols;
@@ -31,21 +31,19 @@ export class MapGeneratorService {
         }
       });
     });
-
-
-
-    // // Initialize Map
-    // this.map = new Array(this.cols);
-    // var k:number = 0;
-    // for(var i = 0; i < this.rows; i++){
-    //     this.map[i] = new Array(this.rows);
-    //     for(var j = 0; j < this.cols; j++){
-    //       this.map[i][j] = this.tiles[k]; k++;
-    //     }
-    //   }
-
-
     // Inject Level to wizard
     this.wizard.level = this.selectedLevel;
+  }
+
+  setLevel(i:number){
+    this.selectedLevel = LEVELS[i];
+    this.tiles = [];
+    this.map = [];
+    this.cols = this.selectedLevel.cols;
+    this.rows = this.selectedLevel.rows;
+    this.units = this.selectedLevel.units;
+    this.wizard = this.units[0];
+    this.checkPoints = this.selectedLevel.checkPoints;
+    this.initializeTiles();
   }
 }

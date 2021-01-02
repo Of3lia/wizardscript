@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { delay } from 'rxjs/operators';
 import { Unit, UnitState, Wizard } from '../models/gameModels';
+import { ConsoleService } from './console.service';
 import { MapGeneratorService } from './map-generator.service';
 
 @Injectable({
@@ -8,9 +9,12 @@ import { MapGeneratorService } from './map-generator.service';
 })
 export class GameControllerService {
 
+  disableRunScriptButton:boolean=false;
+
   units:Unit[] = this.mapGeneratorService.units;
   wizard:any = this.units[0];
   stopUpdate:boolean=false;
+  updateInitiated:boolean=false;
   frameCount:number = 0;
   currentCheckPointStep:number = 0;
   constructor(
@@ -18,10 +22,17 @@ export class GameControllerService {
   ) { }
 
   initUpdate(){
+    if(!this.updateInitiated){
+      this.loop();
+      this.updateInitiated = true;
+    }
+  }
 
+  private loop(){
+    this.updateInitiated = true;
     // Inject This Service to Wizard
     setTimeout(() => {
-      this.initUpdate();
+      this.loop();
       this.update();
     }, 25);
   }
@@ -48,7 +59,7 @@ export class GameControllerService {
       this.stopUpdate = true;
     }
     // If wizard is in a Check Point
-    if(this.wizard.checkPoint != undefined){
+    else if(this.wizard.checkPoint != undefined){
       window.alert("check point");
       // Desactivate check point
       this.wizard.checkPoint.isActivated = false;
@@ -58,8 +69,18 @@ export class GameControllerService {
       this.mapGeneratorService.checkPoints?.forEach(element => {
         if(element.step == this.currentCheckPointStep){ element.isActivated = true; }
       });
+
+      if(this.wizard.checkPointWriteInConsoleAgain == true ){
+        this.activateConsoleAgain();
+      }else{
+        window.alert("Victory");
+      }
       // Deactivate wizard check point holder
       this.wizard.checkPoint = undefined;
     }
+  }
+
+  activateConsoleAgain(){
+    this.disableRunScriptButton=false;
   }
 }

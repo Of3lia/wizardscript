@@ -1,12 +1,14 @@
 export class Level{
-    constructor(levelNumber:number, rows:number, cols:number, tiles:Tile[]) {
+    constructor(levelNumber:number, title:string, rows:number, cols:number, tiles:Tile[]) {
         this.levelNumber = levelNumber;
+        this.title = title;
         this.rows = rows;
         this.cols = cols;
         this.tiles = tiles;
         this.dialogs
     }
     levelNumber:number;
+    title:string;
     rows: number;
     cols: number;
     tiles:Tile[];
@@ -63,11 +65,13 @@ export class CheckPoint extends iPositionable {
     isActivated:boolean = false;
     step:number;
     sprite:string = "./../../assets/img/checkPointFlag.svg";
+    writeInConsoleAgain:boolean;
 
-    constructor(posX: number, posY:number, totalCols:number, totalRows:number, step:number) {
+    constructor(posX: number, posY:number, totalCols:number, totalRows:number, step:number, writeInConsoleAgain:boolean = false) {
         super(posX, posY, totalCols, totalRows);
 
         this.step = step;
+        this.writeInConsoleAgain = writeInConsoleAgain;
     }
 }
 
@@ -106,7 +110,6 @@ export class Unit extends iPositionable{
         this.totalSteps = 60;
         this.steps = 0;
         this.speed = this.percX / this.totalSteps / 2;
-
     }
 
     totalCols:number;
@@ -119,7 +122,8 @@ export class Unit extends iPositionable{
     speed:number;
     movements:UnitMovement[] = [];
     
-    checkPoint:CheckPoint | undefined;
+    checkPoint?:CheckPoint;
+    checkPointWriteInConsoleAgain?:boolean;
 
     private _level?: Level | undefined;
     public get level(): Level | undefined {
@@ -180,18 +184,18 @@ export class Unit extends iPositionable{
         }
     }
 
-    public moveTo(direction:string){
+    public moveTo(direction:UnitMovement){
         switch (direction){
-            case UnitMovement[0]:
+            case UnitMovement.Left:
                 this.movement = UnitMovement.Left;
                 break;
-            case UnitMovement[1]:
+            case UnitMovement.Right:
                 this.movement = UnitMovement.Right;
                 break;
-            case UnitMovement[2]:
+            case UnitMovement.Up:
                 this.movement = UnitMovement.Up;
                 break;
-            case UnitMovement[3]:
+            case UnitMovement.Down:
                 this.movement = UnitMovement.Down;
                 break;
         }
@@ -225,6 +229,7 @@ export class Unit extends iPositionable{
         else if( this.map[this.posX][this.posY].checkPoint != undefined && this.map[this.posX][this.posY].checkPoint?.isActivated ){
             // Is on a Check Point
             this.checkPoint = this.map[this.posX][this.posY].checkPoint
+            this.checkPointWriteInConsoleAgain = this.checkPoint?.writeInConsoleAgain;
         }
     }
 }

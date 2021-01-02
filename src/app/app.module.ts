@@ -10,6 +10,9 @@ import { MapComponent } from './components/map/map.component';
 import { UnitComponent } from './components/unit/unit.component';
 import { ConsoleComponent } from './components/console/console.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LevelsMenuComponent } from './components/levels-menu/levels-menu.component';
+import { MainComponent } from './components/main/main.component';
+import { GameSceneComponent } from './components/game-scene/game-scene.component';
 
 
 @NgModule({
@@ -18,6 +21,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MapComponent,
     UnitComponent,
     ConsoleComponent,
+    LevelsMenuComponent,
+    MainComponent,
+    GameSceneComponent,
   ],
   imports: [
     BrowserModule,
