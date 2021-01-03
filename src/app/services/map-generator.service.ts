@@ -8,7 +8,6 @@ import { CheckPoint, Level, Tile, Unit } from '../models/gameModels';
 })
 export class MapGeneratorService {
 
-  currentLevel:number = 0;
   selectedLevel:Level = LEVELS[localStorage.level];
   public tiles:Tile[] = [];
   public map:Tile[][] = [];
@@ -24,7 +23,6 @@ export class MapGeneratorService {
   
   setLevel(i:number){
     this.selectedLevel = LEVELS[i];
-    this.currentLevel = i;
     this.tiles = [];
     this.map = [];
     this.cols = this.selectedLevel.cols;

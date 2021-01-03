@@ -36,7 +36,9 @@
     <div *ngFor="let dialog of mapGeneratorService.selectedLevel.dialogs">
       <div [innerHTML]="dialog.content" *ngIf="dialog.id <= gameControllerService.currentCheckPointStep"></div>
     </div>
-      <div style="text-align: center;"><br><button *ngIf="gameControllerService.victory == true" (click)="levelService.setLevel(mapGeneratorService.currentLevel+2)" class="btn-warning">Next Level l></button></div>
+      <div style="text-align: center;"><br><button 
+        *ngIf="gameControllerService.victory == true" 
+        (click)="levelService.setLevel(mapGeneratorService.selectedLevel.levelNumber)" class="btn-warning">Next Level l></button></div>
   </div>
 </ng-container>
 

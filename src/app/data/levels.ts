@@ -97,7 +97,7 @@ export const LEVELS: Level[] = [
          new Dialog(1, "<br>- Good!"),
      ], helpText:`Loop spell: <br> <br>  for(var i = 0; i < 5; i++) { <br> Movement spell <br> } `
     },
-    { levelNumber:2, title:"Up hill", cols: 6, rows:6, 
+    { levelNumber:3, title:"Up hill", cols: 6, rows:6, 
     tiles:[
          new Tile(0,0,6,6),
          new Tile(0,1,6,6),

@@ -12,10 +12,11 @@ export class MainComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // Reset Local Storage Value in case it is messed up to a number higher that the number of levels
+    localStorage.level =1;
   }
 
   goToLevelSelectionMenu(){
     this.router.navigateByUrl('level-menu')
-
   }
 }

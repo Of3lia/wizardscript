@@ -110,7 +110,6 @@ export class Unit extends iPositionable{
         this.totalSteps = 60;
         this.steps = 0;
         this.speed = (100 / totalCols / this.totalSteps);
-        console.log(this.speed);
     }
     sprite:string = "./../../assets/img/wizard.svg";
 
