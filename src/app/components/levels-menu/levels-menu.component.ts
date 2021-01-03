@@ -12,13 +12,10 @@ import { MapGeneratorService } from 'src/app/services/map-generator.service';
 export class LevelsMenuComponent implements OnInit {
   levels:Level[] = LEVELS;
   constructor(
-    public mapGeneratorService:MapGeneratorService
+    public mapGeneratorService:MapGeneratorService,
+    public levelService:LevelService,
   ) { }
 
   ngOnInit(): void {
-  }
-
-  setLevel(i:number){
-    this.mapGeneratorService.setLevel(i);
   }
 }

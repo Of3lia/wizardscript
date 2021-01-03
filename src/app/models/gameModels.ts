@@ -109,8 +109,10 @@ export class Unit extends iPositionable{
 
         this.totalSteps = 60;
         this.steps = 0;
-        this.speed = this.percX / this.totalSteps / 2;
+        this.speed = (100 / totalCols / this.totalSteps);
+        console.log(this.speed);
     }
+    sprite:string = "./../../assets/img/wizard.svg";
 
     totalCols:number;
     totalRows:number;
@@ -164,7 +166,6 @@ export class Unit extends iPositionable{
     }
 
     private move(){
-        console.log(this.steps);
         if(this.movements.length > 0){
             if(this.steps > 0){
                 this.steps--;
@@ -175,6 +176,8 @@ export class Unit extends iPositionable{
                 
                 this.percentX = this.percX + '%';
                 this.percentY = this.percY + '%';
+        console.log(this.percentX);
+
             }else{
                 this.setNewPos(this.movements[0])
                 this.setState(this.movement);
@@ -218,7 +221,6 @@ export class Unit extends iPositionable{
                 this.posY++;
                 break;
         }
-        console.log(this.posX, this.posY);
     }
 
     private setState(newPos:UnitMovement){

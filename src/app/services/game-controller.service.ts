@@ -9,6 +9,9 @@ import { MapGeneratorService } from './map-generator.service';
 })
 export class GameControllerService {
 
+  victory:boolean = false; 
+  public model = 2;
+
   disableRunScriptButton:boolean=false;
 
   units:Unit[] = this.mapGeneratorService.units;
@@ -19,6 +22,7 @@ export class GameControllerService {
   currentCheckPointStep:number = 0;
   constructor(
     private mapGeneratorService: MapGeneratorService,
+    public consoleService:ConsoleService,
   ) { }
 
   initUpdate(){
@@ -60,11 +64,11 @@ export class GameControllerService {
     }
     // If wizard is in a Check Point
     else if(this.wizard.checkPoint != undefined){
-      window.alert("check point");
       // Desactivate check point
       this.wizard.checkPoint.isActivated = false;
       // Add a step to checkpoint step counter
       this.currentCheckPointStep++;
+      this.model = 2;
       // Activate next check points
       this.mapGeneratorService.checkPoints?.forEach(element => {
         if(element.step == this.currentCheckPointStep){ element.isActivated = true; }
@@ -73,7 +77,8 @@ export class GameControllerService {
       if(this.wizard.checkPointWriteInConsoleAgain == true ){
         this.activateConsoleAgain();
       }else{
-        window.alert("Victory");
+        // Victory
+        this.victory = true;
       }
       // Deactivate wizard check point holder
       this.wizard.checkPoint = undefined;

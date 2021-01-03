@@ -16,5 +16,6 @@ export class MainComponent implements OnInit {
 
   goToLevelSelectionMenu(){
     this.router.navigateByUrl('level-menu')
+
   }
 }

@@ -6,11 +6,7 @@ import { GameControllerService } from './game-controller.service';
 })
 export class ConsoleService {
 
-  wizardMana: number;
-
   constructor(
-    private gameController: GameControllerService,
   ) { 
-    this.wizardMana = gameController.wizard.mana;
   }
 }

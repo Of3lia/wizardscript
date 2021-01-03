@@ -22,11 +22,12 @@
    </ng-container>
 
     <!-- Wizard -->
-    <image href="./../../assets/img/wizard.svg"
-    [attr.x]="this.mapGeneratorService.units[0].percentX" 
-    [attr.y]="this.mapGeneratorService.units[0].percentY" 
-    [attr.width]="this.mapGeneratorService.units[0].width" 
-    [attr.height]="this.mapGeneratorService.units[0].height" >
+    <image 
+    [attr.href]="this.mapGeneratorService.wizard.sprite"
+    [attr.x]="this.mapGeneratorService.wizard.percentX" 
+    [attr.y]="this.mapGeneratorService.wizard.percentY" 
+    [attr.width]="this.mapGeneratorService.wizard.width" 
+    [attr.height]="this.mapGeneratorService.wizard.height" >
    </image>
 
 </svg> 

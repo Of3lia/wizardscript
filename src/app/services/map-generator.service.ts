@@ -8,7 +8,8 @@ import { CheckPoint, Level, Tile, Unit } from '../models/gameModels';
 })
 export class MapGeneratorService {
 
-  selectedLevel:Level = LEVELS[1];
+  currentLevel:number = 0;
+  selectedLevel:Level = LEVELS[localStorage.level];
   public tiles:Tile[] = [];
   public map:Tile[][] = [];
   cols:number = this.selectedLevel.cols;
@@ -20,7 +21,24 @@ export class MapGeneratorService {
   constructor() { 
   }
 
+  
+  setLevel(i:number){
+    this.selectedLevel = LEVELS[i];
+    this.currentLevel = i;
+    this.tiles = [];
+    this.map = [];
+    this.cols = this.selectedLevel.cols;
+    this.rows = this.selectedLevel.rows;
+    this.units = this.selectedLevel.units;
+    this.wizard = this.units[0];
+    this.checkPoints = this.selectedLevel.checkPoints;
+    this.initializeTiles();
+  }
+
   initializeTiles(){
+    var lvl = parseInt(localStorage.level);
+    console.log(localStorage.level);
+    this.selectedLevel=LEVELS[lvl]
     // Populate World Tiles
     this.selectedLevel.tiles.forEach(tile => {
       this.tiles.push(tile);
@@ -33,17 +51,5 @@ export class MapGeneratorService {
     });
     // Inject Level to wizard
     this.wizard.level = this.selectedLevel;
-  }
-
-  setLevel(i:number){
-    this.selectedLevel = LEVELS[i];
-    this.tiles = [];
-    this.map = [];
-    this.cols = this.selectedLevel.cols;
-    this.rows = this.selectedLevel.rows;
-    this.units = this.selectedLevel.units;
-    this.wizard = this.units[0];
-    this.checkPoints = this.selectedLevel.checkPoints;
-    this.initializeTiles();
   }
 }

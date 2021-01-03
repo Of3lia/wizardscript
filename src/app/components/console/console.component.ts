@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Unit, UnitMovement } from 'src/app/models/gameModels';
+import { Unit, UnitMovement, Wizard } from 'src/app/models/gameModels';
 import { GameControllerService } from 'src/app/services/game-controller.service';
 import { MapGeneratorService } from 'src/app/services/map-generator.service';
 import {NgbProgressbarConfig} from '@ng-bootstrap/ng-bootstrap';
 import { ConsoleService } from './../../services/console.service';
+import { LevelService } from 'src/app/services/level.service';
 
 @Component({
   selector: 'app-console',
@@ -11,28 +12,28 @@ import { ConsoleService } from './../../services/console.service';
   styleUrls: ['./console.component.scss']
 })
 export class ConsoleComponent implements OnInit {
-
+  
   wizScript:any = `wizard.moveTo(right);`;
   Left:UnitMovement=UnitMovement.Left;
   Right:UnitMovement=UnitMovement.Right;
   Up:UnitMovement=UnitMovement.Up;
   Down:UnitMovement=UnitMovement.Down;
 
-  model = 1;
   constructor(
     public mapGeneratorService:MapGeneratorService,
     public gameControllerService:GameControllerService,
     private config: NgbProgressbarConfig,
     public consoleService: ConsoleService,
+    public levelService:LevelService,
   ) { 
     config.striped = true;
     config.animated = true;
   }
 
-  wizard:Unit = this.mapGeneratorService.units[0];
-  wizardMana:number = this.consoleService.wizardMana;
+  wizard:Wizard = this.mapGeneratorService.units[0] as Wizard;
+  totalMana:number = this.wizard.mana;
   consumedMana:number = 0;
-  leftMana:number = this.wizardMana;
+  leftMana:number = this.totalMana;
   leftManaPercent:number = this.leftMana;
   right:UnitMovement=UnitMovement.Right;
   left:UnitMovement=UnitMovement.Left;
@@ -66,7 +67,7 @@ export class ConsoleComponent implements OnInit {
 
   calculateMana(){
     this.consumedMana = this.wizScript.replace(/\s/g, '').length;
-    this.leftMana = this.wizardMana - this.consumedMana;
-    this.leftManaPercent = 100 - (100 * this.consumedMana / 150);
+    this.leftMana = this.totalMana - this.consumedMana;
+    this.leftManaPercent = 100 - (100 * this.consumedMana / this.totalMana);
   }
 }

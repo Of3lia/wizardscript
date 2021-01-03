@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MapGeneratorService } from 'src/app/services/map-generator.service';
 
 @Component({
   selector: 'app-game-scene',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameSceneComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public mapGeneratorService:MapGeneratorService
+  ) { }
 
   ngOnInit(): void {
   }

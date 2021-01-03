@@ -8,4 +8,9 @@ import { Level } from '../models/gameModels';
 export class LevelService {
   levels:Level[]=LEVELS;
   constructor() { }
+
+  setLevel(i:number){
+    location.replace("./../game-scene");
+    localStorage.level = i;
+  }
 }
