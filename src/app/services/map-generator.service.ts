@@ -35,7 +35,6 @@ export class MapGeneratorService {
 
   initializeTiles(){
     var lvl = parseInt(localStorage.level);
-    console.log(localStorage.level);
     this.selectedLevel=LEVELS[lvl]
     // Populate World Tiles
     this.selectedLevel.tiles.forEach(tile => {

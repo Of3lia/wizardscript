@@ -175,13 +175,13 @@ export class Unit extends iPositionable{
                 
                 this.percentX = this.percX + '%';
                 this.percentY = this.percY + '%';
-        console.log(this.percentX);
-
             }else{
-                this.setNewPos(this.movements[0])
-                this.setState(this.movement);
+                // this.setNewPos(this.movements[0])
                 this.movements.shift();
-                if(this.movements.length > 0){ this.steps = this.totalSteps; } else { this.movement = UnitMovement.Idle; }
+                if(this.movements.length > 0){ this.steps = this.totalSteps; } 
+                else { this.movement = UnitMovement.Idle; 
+                       this.setState(this.movement);
+                }
             }
         }
     }
@@ -189,38 +189,38 @@ export class Unit extends iPositionable{
     public moveTo(direction:UnitMovement){
         switch (direction){
             case UnitMovement.Left:
-                this.movement = UnitMovement.Left;
+                this.movement = UnitMovement.Left; this.posX--;
                 break;
             case UnitMovement.Right:
-                this.movement = UnitMovement.Right;
+                this.movement = UnitMovement.Right; this.posX++;
                 break;
             case UnitMovement.Up:
-                this.movement = UnitMovement.Up;
+                this.movement = UnitMovement.Up; this.posY--;
                 break;
             case UnitMovement.Down:
-                this.movement = UnitMovement.Down;
+                this.movement = UnitMovement.Down; this.posY++;
                 break;
         }
         this.movements.push(this.movement);
         this.steps = this.totalSteps;
     }
 
-    private setNewPos(direction:UnitMovement){
-        switch (direction){
-            case UnitMovement.Left:
-                this.posX--;
-                break;
-            case UnitMovement.Right:
-                this.posX++;
-                break;
-            case UnitMovement.Up:
-                this.posY--;
-                break;
-            case UnitMovement.Down:
-                this.posY++;
-                break;
-        }
-    }
+    // private setNewPos(direction:UnitMovement){
+    //     switch (direction){
+    //         case UnitMovement.Left:
+    //             this.posX--;
+    //             break;
+    //         case UnitMovement.Right:
+    //             this.posX++;
+    //             break;
+    //         case UnitMovement.Up:
+    //             this.posY--;
+    //             break;
+    //         case UnitMovement.Down:
+    //             this.posY++;
+    //             break;
+    //     }
+    // }
 
     private setState(newPos:UnitMovement){
         if( this.map[this.posX][this.posY].type == TileType.Lava ){
@@ -255,4 +255,22 @@ export class Wizard extends Unit{
     }
 
     public mana:number;
+
+    getTile(pos:UnitMovement):Tile{
+        var x = 0; var y = 0;
+        if(pos = UnitMovement.Up){ y--; }
+        if(pos = UnitMovement.Down){ y++; }
+        if(pos = UnitMovement.Left){ x--; }
+        if(pos = UnitMovement.Right){ x++; }
+        return this.map[this.posX + x][this.posY + y];
+    }
+
+    getTileType(pos:UnitMovement){
+        var x = 0; var y = 0;
+        if(pos = UnitMovement.Up){ y--; }
+        if(pos = UnitMovement.Down){ y++; }
+        if(pos = UnitMovement.Left){ x--; }
+        if(pos = UnitMovement.Right){ x++; }
+        return TileType[this.map[this.posX + x][this.posY + y].type];
+    }
 }
