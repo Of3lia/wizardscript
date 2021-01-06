@@ -111,7 +111,7 @@ export class Unit extends iPositionable{
         this.steps = 0;
         this.speed = (100 / totalCols / this.totalSteps);
     }
-    sprite:string = "./../../assets/img/wizard.svg";
+    sprite:string = "";
 
     totalCols:number;
     totalRows:number;
@@ -253,6 +253,8 @@ export class Wizard extends Unit{
         super(posX, posY, totalCols, totalRows, level);
         this.mana = mana;
     }
+
+    sprite = "./../../assets/img/witch.svg";
 
     public mana:number;
 
