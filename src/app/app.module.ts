@@ -13,7 +13,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LevelsMenuComponent } from './components/levels-menu/levels-menu.component';
 import { MainComponent } from './components/main/main.component';
 import { GameSceneComponent } from './components/game-scene/game-scene.component';
-
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+ 
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
   declarations: [
@@ -32,6 +37,7 @@ import { GameSceneComponent } from './components/game-scene/game-scene.component
     MatGridListModule,
     FormsModule,
     NgbModule,
+    [LottieModule.forRoot({ player: playerFactory })],
   ],
   providers: [],
   bootstrap: [AppComponent]

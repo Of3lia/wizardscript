@@ -254,7 +254,7 @@ export class Wizard extends Unit{
         this.mana = mana;
     }
 
-    sprite = "./../../assets/img/witch.svg";
+    sprite = "./../../assets/img/wizard.svg"
 
     public mana:number;
 

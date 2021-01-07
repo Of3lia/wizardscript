@@ -1,35 +1,42 @@
-<svg width="100px" height="100px" style=" box-sizing:border-box; border: 1px solid black; margin: 0em; width:100%; height:100%">
-    
-    <!-- Tiles -->
-    <rect   *ngFor="let tile of mapGeneratorService.tiles; let i = index"   
-            [attr.x]="this.mapGeneratorService.tiles[i].percentX" 
-            [attr.y]="this.mapGeneratorService.tiles[i].percentY"
-            [attr.width]="this.mapGeneratorService.tiles[i].width" 
-            [attr.height]="this.mapGeneratorService.tiles[i].height"
-            style="stroke: rgb(90, 90, 90); stroke-width: 0.1%; fill: {{this.mapGeneratorService.tiles[i].color}};"
-            >
-    </rect>
+<div style="border: 5px solid pink; margin: 0; padding: 0;">
+    <ng-lottie [options]="options" (animationCreated)="animationCreated($event)" 
+     style="position: absolute;"
+     [style.width]="this.mapGeneratorService.wizard.width"
+     [style.height]="this.mapGeneratorService.wizard.height"
+     [style.left]="this.mapGeneratorService.wizard.percentX"
+     [style.top]="this.mapGeneratorService.wizard.percentY"
+     ></ng-lottie>
 
-    <!-- Check Points -->
-    <ng-container *ngFor="let checkPoint of this.mapGeneratorService.checkPoints">
-        <image *ngIf="gameControllerService.currentCheckPointStep==checkPoint.step" 
-        [attr.href]="checkPoint.sprite"
-        [attr.x]="checkPoint.percentX" 
-        [attr.y]="checkPoint.percentY" 
-        [attr.width]="checkPoint.width" 
-        [attr.height]="checkPoint.height">
-        </image>
-   </ng-container>
+    <svg width="100px" height="100px" style=" box-sizing:border-box; border: 1px solid black; margin: 0em; width:100%; height:100%">
+        
+        <!-- Tiles -->
+        <rect   *ngFor="let tile of mapGeneratorService.tiles; let i = index"   
+                [attr.x]="this.mapGeneratorService.tiles[i].percentX" 
+                [attr.y]="this.mapGeneratorService.tiles[i].percentY"
+                [attr.width]="this.mapGeneratorService.tiles[i].width" 
+                [attr.height]="this.mapGeneratorService.tiles[i].height"
+                style="stroke: rgb(90, 90, 90); stroke-width: 0.1%; fill: {{this.mapGeneratorService.tiles[i].color}};"
+                >
+        </rect>
 
-    <!-- Wizard -->
-    <image 
-    [attr.href]="this.mapGeneratorService.wizard.sprite"
-    [attr.x]="this.mapGeneratorService.wizard.percentX" 
-    [attr.y]="this.mapGeneratorService.wizard.percentY" 
-    [attr.width]="this.mapGeneratorService.wizard.width" 
-    [attr.height]="this.mapGeneratorService.wizard.height" >
-   </image>
+        <!-- Check Points -->
+        <ng-container *ngFor="let checkPoint of this.mapGeneratorService.checkPoints">
+            <image *ngIf="gameControllerService.currentCheckPointStep==checkPoint.step" 
+            [attr.href]="checkPoint.sprite"
+            [attr.x]="checkPoint.percentX" 
+            [attr.y]="checkPoint.percentY" 
+            [attr.width]="checkPoint.width" 
+            [attr.height]="checkPoint.height">
+            </image>
+        </ng-container>
 
-   <svg></svg>
-</svg> 
-
+        <!-- Wizard -->
+        <!-- <image 
+        [attr.href]="this.mapGeneratorService.wizard.sprite"
+        [attr.x]="this.mapGeneratorService.wizard.percentX" 
+        [attr.y]="this.mapGeneratorService.wizard.percentY" 
+        [attr.width]="this.mapGeneratorService.wizard.width" 
+        [attr.height]="this.mapGeneratorService.wizard.height" >
+    </image> -->
+    </svg> 
+</div>
