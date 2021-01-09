@@ -13,7 +13,7 @@ import { LevelService } from 'src/app/services/level.service';
 })
 export class ConsoleComponent implements OnInit {
   
-  wizScript:any = `wizard.moveTo(right);`;
+  wizScript:any = localStorage.getItem("wizScript");
   Left:UnitMovement=UnitMovement.Left;
   Right:UnitMovement=UnitMovement.Right;
   Up:UnitMovement=UnitMovement.Up;
@@ -30,8 +30,8 @@ export class ConsoleComponent implements OnInit {
     config.animated = true;
   }
 
-  wizard:Wizard = this.mapGeneratorService.units[0] as Wizard;
-  totalMana:number = this.wizard.mana;
+  witch:Wizard = this.mapGeneratorService.units[0] as Wizard;
+  totalMana:number = this.witch.mana;
   consumedMana:number = 0;
   leftMana:number = this.totalMana;
   leftManaPercent:number = this.leftMana;
@@ -48,7 +48,7 @@ export class ConsoleComponent implements OnInit {
     this.gameControllerService.disableRunScriptButton=true;
     try{
       this.gameControllerService.initUpdate();
-      eval(`var wizard = this.wizard;
+      eval(`var witch = this.witch;
        var right = this.right;
        var left = this.left;
        var up = this.up;
@@ -69,5 +69,11 @@ export class ConsoleComponent implements OnInit {
     this.consumedMana = this.wizScript.replace(/\s/g, '').length;
     this.leftMana = this.totalMana - this.consumedMana;
     this.leftManaPercent = 100 - (100 * this.consumedMana / this.totalMana);
+    this.saveCode();
+  }
+  
+  saveCode(){
+    localStorage.setItem("wizScript", this.wizScript);
+    this.wizScript = localStorage.getItem("wizScript");
   }
 }

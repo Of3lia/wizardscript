@@ -34,7 +34,7 @@ export const LEVELS: Level[] = [
             new CheckPoint(1,2,4,4,3)
         ],
          dialogs:[
-             new Dialog(0, `<u>Ratpenat The Wizard:</u> <br><br> \u00A0 \"The evil wizards of Evenur have attacked me and now I have lost all my powers. 
+             new Dialog(0, `<u>Ratpenat The Witch:</u> <br><br> \u00A0 \"The evil wizards of Evenur have attacked me and now I have lost all my powers. 
              I need to get to the cursed forest fast... but i can only do very little magic\"`),
              new Dialog(1, `<br>- Ok now i need to move up...`),
              new Dialog(2, `<br>- Damm! I forgot my glasses! I need to go left`),
@@ -201,8 +201,8 @@ export const LEVELS: Level[] = [
         new Dialog(1, "<br>- Good!"),
     ], helpText:`for (var i = 0; i < 10; i++){
 
-        if (wizard.getTileType(right)=="Lava"){wizard.moveTo(up);}
-         else{wizard.moveTo(right);}
+        if (witch.getTileType(right)=="Lava"){witch.moveTo(up);}
+         else{witch.moveTo(right);}
      
      }
       `

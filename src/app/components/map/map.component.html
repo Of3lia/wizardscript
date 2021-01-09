@@ -1,6 +1,6 @@
-<div style="border: 5px solid pink; margin: 0; padding: 0;">
+<div style="border: 0.5em ridge grey; margin: 0; padding: 0;">
     <ng-lottie [options]="options" (animationCreated)="animationCreated($event)" 
-     style="position: absolute;"
+     style="position: absolute; background: radial-gradient(#ff009d83, #ffffff00);"
      [style.width]="this.mapGeneratorService.wizard.width"
      [style.height]="this.mapGeneratorService.wizard.height"
      [style.left]="this.mapGeneratorService.wizard.percentX"
@@ -10,14 +10,16 @@
     <svg width="100px" height="100px" style=" box-sizing:border-box; border: 1px solid black; margin: 0em; width:100%; height:100%">
         
         <!-- Tiles -->
-        <rect   *ngFor="let tile of mapGeneratorService.tiles; let i = index"   
+        <image
+                *ngFor="let tile of mapGeneratorService.tiles; let i = index"   
+                [attr.href]="tile.sprite"
                 [attr.x]="this.mapGeneratorService.tiles[i].percentX" 
                 [attr.y]="this.mapGeneratorService.tiles[i].percentY"
                 [attr.width]="this.mapGeneratorService.tiles[i].width" 
                 [attr.height]="this.mapGeneratorService.tiles[i].height"
-                style="stroke: rgb(90, 90, 90); stroke-width: 0.1%; fill: {{this.mapGeneratorService.tiles[i].color}};"
+                style="outline: 0.3em dashed rgba(255, 255, 255, 0.5);"
                 >
-        </rect>
+        </image>
 
         <!-- Check Points -->
         <ng-container *ngFor="let checkPoint of this.mapGeneratorService.checkPoints">
@@ -26,7 +28,8 @@
             [attr.x]="checkPoint.percentX" 
             [attr.y]="checkPoint.percentY" 
             [attr.width]="checkPoint.width" 
-            [attr.height]="checkPoint.height">
+            [attr.height]="checkPoint.height"
+            >
             </image>
         </ng-container>
 

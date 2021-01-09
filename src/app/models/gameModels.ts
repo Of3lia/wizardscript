@@ -82,15 +82,15 @@ export class Tile extends iPositionable{
         this.type = type;
         switch(type){
             case TileType.Lava:
-                this.color = 'rgb(220, 20, 20)';
+                this.sprite = "./../../assets/img/tiles/lavatile.svg";
             break;
             case TileType.Water:
-                this.color = 'rgb(61, 206, 216)';
+                this.sprite = "./../../assets/img/tiles/grass-tile.svg";
             break;
         }
     }
+    sprite:string = "./../../assets/img/tiles/grass-tile.svg";
     type:TileType;
-    public color:string = 'rgb(100, 180, 80)';
     checkPoint:CheckPoint | undefined;
 }
 
