@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { FormsModule } from '@angular/forms';
 
@@ -33,11 +32,10 @@ export function playerFactory() {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
     MatGridListModule,
     FormsModule,
     NgbModule,
-    [LottieModule.forRoot({ player: playerFactory })],
+    [LottieModule.forRoot({ player: playerFactory, useCache: true })],
   ],
   providers: [],
   bootstrap: [AppComponent]

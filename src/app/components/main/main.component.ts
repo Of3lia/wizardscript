@@ -7,13 +7,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
+
   constructor(
     public router:Router
   ) { }
 
   ngOnInit(): void {
     // Reset Local Storage Value in case it is messed up to a number higher that the number of levels
-    localStorage.level =1;
+    localStorage.level = 1;
   }
 
   goToLevelSelectionMenu(){

@@ -1,6 +1,20 @@
+       
 <div style="border: 0.5em ridge grey; margin: 0; padding: 0;">
-    <ng-lottie [options]="options" (animationCreated)="animationCreated($event)" 
-     style="position: absolute; background: radial-gradient(#ff009d83, #ffffff00);"
+    <!-- Check Points -->
+    <ng-container *ngFor="let checkPoint of this.mapGeneratorService.checkPoints">
+        <ng-lottie *ngIf="gameControllerService.currentCheckPointStep==checkPoint.step" 
+        [options]="checkPoint.options"
+        [style.left]="checkPoint.percentX" 
+        [style.top]="checkPoint.percentY" 
+        [style.width]="checkPoint.width" 
+        [style.height]="checkPoint.height"
+        style="position: absolute;"
+        > </ng-lottie>
+    </ng-container>
+    
+    <!-- Witch -->
+    <ng-lottie [options]="this.mapGeneratorService.wizard.options" (animationCreated)="animationCreated($event)" 
+     style="position: absolute; background: radial-gradient(50% 50% at center, #ff009d83, #ffffff00);"
      [style.width]="this.mapGeneratorService.wizard.width"
      [style.height]="this.mapGeneratorService.wizard.height"
      [style.left]="this.mapGeneratorService.wizard.percentX"
@@ -21,17 +35,7 @@
                 >
         </image>
 
-        <!-- Check Points -->
-        <ng-container *ngFor="let checkPoint of this.mapGeneratorService.checkPoints">
-            <image *ngIf="gameControllerService.currentCheckPointStep==checkPoint.step" 
-            [attr.href]="checkPoint.sprite"
-            [attr.x]="checkPoint.percentX" 
-            [attr.y]="checkPoint.percentY" 
-            [attr.width]="checkPoint.width" 
-            [attr.height]="checkPoint.height"
-            >
-            </image>
-        </ng-container>
+
 
         <!-- Wizard -->
         <!-- <image 

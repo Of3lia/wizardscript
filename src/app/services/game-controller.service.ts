@@ -59,7 +59,7 @@ export class GameControllerService {
   checkWizardState(){
     // If wizard is dead
     if(this.wizard.state == UnitState.Dead){
-      window.alert("Wizard Died");
+      window.alert("Witch Died");
       this.stopUpdate = true;
     }
     // If wizard is in a Check Point

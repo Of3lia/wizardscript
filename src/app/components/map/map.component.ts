@@ -10,9 +10,6 @@ import { MapGeneratorService } from 'src/app/services/map-generator.service';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
-  options: AnimationOptions = {
-    path: './../../../assets/lottie-animations/witch-hit-stick.json',
-  };
   tileCenters:any = [];
   mapHeight:string = '200px';
   constructor(

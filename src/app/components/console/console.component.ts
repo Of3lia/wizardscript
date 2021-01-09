@@ -13,7 +13,7 @@ import { LevelService } from 'src/app/services/level.service';
 })
 export class ConsoleComponent implements OnInit {
   
-  wizScript:any = localStorage.getItem("wizScript");
+  wizScript:any;
   Left:UnitMovement=UnitMovement.Left;
   Right:UnitMovement=UnitMovement.Right;
   Up:UnitMovement=UnitMovement.Up;
@@ -41,6 +41,11 @@ export class ConsoleComponent implements OnInit {
   up:UnitMovement=UnitMovement.Up;
 
   ngOnInit(): void {
+    if(localStorage.getItem("wizScript") == undefined){
+      localStorage.setItem("wizScript", `witch.moveTo(right);`)
+    }
+    this.wizScript = localStorage.getItem("wizScript")
+
     this.calculateMana();
   }
 

@@ -8,6 +8,7 @@ import { CheckPoint, Level, Tile, Unit } from '../models/gameModels';
 })
 export class MapGeneratorService {
 
+  levels:Level[] = LEVELS;
   selectedLevel:Level = LEVELS[localStorage.level];
   public tiles:Tile[] = [];
   public map:Tile[][] = [];

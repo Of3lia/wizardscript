@@ -1,3 +1,5 @@
+import { AnimationOptions } from "ngx-lottie";
+
 export class Level{
     constructor(levelNumber:number, title:string, rows:number, cols:number, tiles:Tile[]) {
         this.levelNumber = levelNumber;
@@ -64,14 +66,20 @@ export class CheckPoint extends iPositionable {
 
     isActivated:boolean = false;
     step:number;
-    sprite:string = "./../../assets/img/checkPointFlag.svg";
+    sprite:string;
+    options:AnimationOptions;
     writeInConsoleAgain:boolean;
+    
 
     constructor(posX: number, posY:number, totalCols:number, totalRows:number, step:number, writeInConsoleAgain:boolean = false) {
         super(posX, posY, totalCols, totalRows);
 
         this.step = step;
         this.writeInConsoleAgain = writeInConsoleAgain;
+        this.sprite = "./../../../assets/img/decorations/check-point.json";
+        this.options = {
+            path: this.sprite
+        }
     }
 }
 
@@ -110,8 +118,23 @@ export class Unit extends iPositionable{
         this.totalSteps = 60;
         this.steps = 0;
         this.speed = (100 / totalCols / this.totalSteps);
+
+        this.idleSprite = "./../../../assets/img/characters/witch-idle.json";
+        this.walkSprite = "./../../../assets/img/characters/witch-walk.json";
+        this.sprite = this.idleSprite;
+        this.options = {
+            path: this.walkSprite
+        }
+        this.options = {
+            path: this.idleSprite
+        }
     }
-    sprite:string = "";
+
+    idleSprite:string;
+    walkSprite:string;
+    sprite:string;
+
+    options:AnimationOptions;
 
     totalCols:number;
     totalRows:number;
@@ -181,12 +204,18 @@ export class Unit extends iPositionable{
                 if(this.movements.length > 0){ this.steps = this.totalSteps; } 
                 else { this.movement = UnitMovement.Idle; 
                        this.setState(this.movement);
+                       this.options = {
+                        path: this.idleSprite
+                    }
                 }
             }
         }
     }
 
     public moveTo(direction:UnitMovement){
+        this.options = {
+            path: this.walkSprite
+        }
         switch (direction){
             case UnitMovement.Left:
                 this.movement = UnitMovement.Left; this.posX--;
@@ -253,8 +282,6 @@ export class Wizard extends Unit{
         super(posX, posY, totalCols, totalRows, level);
         this.mana = mana;
     }
-
-    sprite = "./../../assets/img/wizard.svg"
 
     public mana:number;
 
