@@ -1,0 +1,49 @@
+       
+<div style="border: 0.5em ridge grey; margin: 0; padding: 0;">
+    <!-- Check Points -->
+    <ng-container *ngFor="let checkPoint of this.mapGeneratorService.checkPoints">
+        <ng-lottie *ngIf="gameControllerService.currentCheckPointStep==checkPoint.step" 
+        [options]="checkPoint.options"
+        [style.left]="checkPoint.percentX" 
+        [style.top]="checkPoint.percentY" 
+        [style.width]="checkPoint.width" 
+        [style.height]="checkPoint.height"
+        style="position: absolute;"
+        > </ng-lottie>
+    </ng-container>
+    
+    <!-- Witch -->
+    <ng-lottie [options]="this.mapGeneratorService.wizard.options" (animationCreated)="animationCreated($event)" 
+     style="position: absolute; background: radial-gradient(50% 50% at center, #ff009d83, #ffffff00);"
+     [style.width]="this.mapGeneratorService.wizard.width"
+     [style.height]="this.mapGeneratorService.wizard.height"
+     [style.left]="this.mapGeneratorService.wizard.percentX"
+     [style.top]="this.mapGeneratorService.wizard.percentY"
+     ></ng-lottie>
+
+    <svg width="100px" height="100px" style=" box-sizing:border-box; border: 1px solid black; margin: 0em; width:100%; height:100%">
+        
+        <!-- Tiles -->
+        <image
+                *ngFor="let tile of mapGeneratorService.tiles; let i = index"   
+                [attr.href]="tile.sprite"
+                [attr.x]="this.mapGeneratorService.tiles[i].percentX" 
+                [attr.y]="this.mapGeneratorService.tiles[i].percentY"
+                [attr.width]="this.mapGeneratorService.tiles[i].width" 
+                [attr.height]="this.mapGeneratorService.tiles[i].height"
+                style="outline: 0.3em dashed rgba(255, 255, 255, 0.5);"
+                >
+        </image>
+
+
+
+        <!-- Wizard -->
+        <!-- <image 
+        [attr.href]="this.mapGeneratorService.wizard.sprite"
+        [attr.x]="this.mapGeneratorService.wizard.percentX" 
+        [attr.y]="this.mapGeneratorService.wizard.percentY" 
+        [attr.width]="this.mapGeneratorService.wizard.width" 
+        [attr.height]="this.mapGeneratorService.wizard.height" >
+    </image> -->
+    </svg> 
+</div>
