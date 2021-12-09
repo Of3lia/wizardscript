@@ -21,12 +21,10 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
-yarn serve
+ng serve --o
 ```
 
 ### Compiles and minifies for production
 ```
-yarn build
+ng build --prod
 ```
-
-### Run your unit tests
